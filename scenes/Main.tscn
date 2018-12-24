@@ -1,0 +1,133 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scenes/Main.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends RigidBody2D
+
+export(int) var min_speed
+export(int) var max_speed
+
+var mob_types = [\"walk\", \"swim\", \"fly\"]
+
+
+func _ready():
+	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
+	
+	
+func _on_Visibility_screen_exited():
+	queue_free()"
+
+[sub_resource type="StreamTexture" id=5]
+
+flags = 4
+load_path = "res://.import/enemySwimming_1.png-76f879cf0818619caa247363cddc32b4.stex"
+
+[sub_resource type="StreamTexture" id=6]
+
+flags = 4
+load_path = "res://.import/enemySwimming_2.png-fd77f8b362888bef7e8d30c51c982174.stex"
+
+[sub_resource type="StreamTexture" id=7]
+
+flags = 4
+load_path = "res://.import/enemyFlyingAlt_1.png-e20580c8fa633ae3f2ca7ffd7ee0d384.stex"
+
+[sub_resource type="StreamTexture" id=8]
+
+flags = 4
+load_path = "res://.import/enemyFlyingAlt_2.png-c4d859732b08e3993cf13dca271a83d6.stex"
+
+[sub_resource type="StreamTexture" id=9]
+
+flags = 4
+load_path = "res://.import/enemyWalking_1.png-6687d7bfdf9d35beacd8755ce78b96ce.stex"
+
+[sub_resource type="StreamTexture" id=10]
+
+flags = 4
+load_path = "res://.import/enemyWalking_2.png-79efba628e2a0bb8fe344240e2967562.stex"
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "swim",
+"speed": 4.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "fly",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 40.2007
+height = 20.7583
+
+[sub_resource type="PackedScene" id=4]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray( "Mob", "RigidBody2D", "input_pickable", "collision_layer", "collision_mask", "mode", "mass", "friction", "bounce", "gravity_scale", "custom_integrator", "continuous_cd", "contacts_reported", "contact_monitor", "sleeping", "can_sleep", "linear_velocity", "linear_damp", "angular_velocity", "angular_damp", "script", "_sections_unfolded", "__meta__", "min_speed", "max_speed", "AnimatedSprite", "AnimatedSprite", "scale", "frames", "animation", "_sections_unfolded", "CollisionShape2D", "CollisionShape2D", "rotation", "shape", "_sections_unfolded", "Visibility", "VisibilityNotifier2D", "rect" ),
+"node_count": 4,
+"node_paths": [ NodePath("."), NodePath("."), NodePath(".") ],
+"nodes": PoolIntArray( -1, -1, 1, 0, -1, 23, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 10, 8, 11, 9, 12, 10, 13, 11, 14, 12, 15, 13, 16, 14, 17, 15, 18, 16, 19, 17, 20, 18, 21, 19, 22, 20, 23, 21, 24, 22, 0, 1073741824, 0, 26, 262169, -1, 4, 27, 23, 28, 24, 29, 25, 30, 26, 0, 1073741825, 0, 32, 524319, -1, 3, 33, 27, 34, 28, 35, 29, 0, 1073741826, 0, 37, 786468, -1, 1, 38, 30, 0 ),
+"variants": [ false, 1, 0, 0, 1.0, 1.0, 0.0, 0.0, false, 0, 0, false, false, true, Vector2( 0, 0 ), -1.0, 0.0, -1.0, SubResource( 1 ), [ "Collision" ], {
+"_edit_group_": true
+}, 150, 250, Vector2( 0.75, 0.75 ), SubResource( 2 ), "walk", [ "Transform" ], 1.5708, SubResource( 3 ), [ "Transform" ], Rect2( -10, -10, 20, 20 ) ],
+"version": 2
+}
+
+[node name="Main" type="Node" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+Mob = SubResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1056.0
+margin_bottom = 783.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+color = Color( 0.0567079, 0.261719, 0.0500946, 1 )
+
+[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+
+_sections_unfolded = [ "Pickable" ]
+speed = 100
+
+[node name="StartPosition" type="Position2D" parent="." index="2"]
+
+position = Vector2( 512, 384 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="HUD" parent="." index="3" instance=ExtResource( 3 )]
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+
+[connection signal="start_game" from="HUD" to="." method="new_game"]
+
+
