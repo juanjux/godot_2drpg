@@ -12,8 +12,6 @@ func _process(delta):
 		exit_game()
 
 func game_over():
-	$ScoreTimer.stop()
-	$MobTimer.stop()
 	$HUD.show_game_over()
 	
 func new_game():
