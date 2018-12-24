@@ -1,4 +1,4 @@
-# WTF
+# 2D RPG?
 
 This is a work-in-progress for an open source sample 2D RPG implemented in [Godot](https://godotengine.org). The idea is 
 to eventually have something that can be used as a base plugin to develop different RPGs but since I'm learning Godot as I go, 
